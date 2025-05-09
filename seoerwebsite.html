@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Website Developer Navigation Tool</title>
+    <style>
+        :root {
+            --apple-blue: #0071e3;
+            --apple-gray: #f5f5f7;
+            --apple-dark: #1d1d1f;
+            --apple-text: #86868b;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        }
+        
+        body {
+            background-color: var(--apple-gray);
+            color: var(--apple-dark);
+            line-height: 1.5;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        header {
+            background: linear-gradient(to right, #147ce5, #0071e3);
+            color: white;
+            padding: 40px 0;
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .header-title h1 {
+            font-size: 36px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+        
+        .header-title p {
+            font-size: 18px;
+            opacity: 0.9;
+        }
+        
+        .language-switcher {
+            display: flex;
+            gap: 8px;
+        }
+        
+        .language-btn {
+            padding: 8px 16px;
+            border-radius: 4px;
+            font-weight: 500;
+            cursor: pointer;
+            border: none;
+            transition: all 0.2s;
+        }
+        
+        .language-btn.active {
+            background-color: white;
+            color: var(--apple-blue);
+        }
+        
+        .language-btn:not(.active) {
+            background-color: rgba(255, 255, 255, 0.2);
+            color: white;
+        }
+        
+        .section-title {
+            background-color: white;
+            border-radius: 12px 12px 0 0;
+            padding: 24px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        
+        .section-title h2 {
+            font-size: 24px;
+            font-weight: 600;
+            color: var(--apple-dark);
+        }
+        
+        .section-title p {
+            color: var(--apple-text);
+            margin-top: 6px;
+        }
+        
+        main {
+            padding: 40px 0;
+        }
+        
+        .tool-card {
+            background-color: white;
+            border-radius: 0 0 12px 12px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+        }
+        
+        .question-item {
+            padding: 20px 24px;
+            border-bottom: 1px solid #f0f0f0;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+        
+        .question-item:last-child {
+            border-bottom: none;
+        }
+        
+        .question-item:hover {
+            background-color: #f8f9fc;
+        }
+        
+        .question-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+        
+        .question-title {
+            font-size: 18px;
+            font-weight: 500;
+            color: var(--apple-dark);
+            flex: 1;
+        }
+        
+        .tool-name {
+            color: var(--apple-blue);
+            font-weight: 500;
+            margin-top: 8px;
+            font-size: 15px;
+        }
+        
+        .details {
+            display: none;
+            padding-top: 16px;
+            margin-top: 16px;
+            border-top: 1px solid #f0f0f0;
+        }
+        
+        .details-visible {
+            display: block;
+        }
+        
+        .details-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 24px;
+        }
+        
+        .details-col {
+            flex: 1;
+            min-width: 250px;
+        }
+        
+        .detail-group {
+            margin-bottom: 16px;
+        }
+        
+        .detail-label {
+            font-size: 14px;
+            color: var(--apple-text);
+            margin-bottom: 4px;
+        }
+        
+        .detail-value {
+            font-size: 16px;
+            color: var(--apple-dark);
+        }
+        
+        .visit-button {
+            display: block;
+            background-color: var(--apple-blue);
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            text-align: center;
+            text-decoration: none;
+            transition: background-color 0.2s;
+            margin-top: 16px;
+        }
+        
+        .visit-button:hover {
+            background-color: #0061c9;
+        }
+        
+        footer {
+            background-color: var(--apple-dark);
+            color: white;
+            padding: 40px 0;
+        }
+        
+        .footer-content {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 20px;
+        }
+        
+        .footer-info h3 {
+            font-size: 18px;
+            font-weight: 500;
+            margin-bottom: 8px;
+        }
+        
+        .footer-info p {
+            color: #a1a1a6;
+        }
+        
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .language-switcher {
+                margin-top: 16px;
+            }
+            
+            .section-title h2 {
+                font-size: 22px;
+            }
+            
+            .question-title {
+                font-size: 16px;
+            }
+            
+            .details-col {
+                flex: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="header-title">
+                    <h1 id="main-title">Website Developer Navigation Tool</h1>
+                    <p id="main-subtitle">A navigation tool for independent website developers</p>
+                </div>
+                <div class="language-switcher">
+                    <button class="language-btn active" onclick="changeLanguage('en')">EN</button>
+                    <button class="language-btn" onclick="changeLanguage('zh')">中文</button>
+                </div>
+            </div>
+        </div>
+    </header>
+    
+    <main>
+        <div class="container">
+            <div class="section-title">
+                <h2 id="section-title">Actual data from our own website</h2>
+                <p id="section-subtitle">Website data analysis tools navigation</p>
+            </div>
+            
+            <div class="tool-card">
+                <div class="question-item" onclick="toggleDetails(this)">
+                    <div class="question-header">
+                        <div>
+                            <div class="question-title">What tools can I use to analyze my website's overall performance?</div>
+                            <div class="tool-name">Google Search Console</div>
+                        </div>
+                        <div class="toggle-icon">▼</div>
+                    </div>
+                    
+                    <div class="details">
+                        <div class="details-row">
+                            <div class="details-col">
+                                <div class="detail-group">
+                                    <div class="detail-label tool-intro-label">Tool Introduction</div>
+                                    <div class="detail-value">Track your site's health and performance in real time.</div>
+                                </div>
+                                
+                                <div class="detail-group">
+                                    <div class="detail-label solution-path-label">Solution Path</div>
+                                    <div class="detail-value">Performance</div>
+                                </div>
+                            </div>
+                            
+                            <div class="details-col">
+                                <a href="https://search.google.com/search-console/about" class="visit-button visit-tool-btn" target="_blank">Visit Tool</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="question-item" onclick="toggleDetails(this)">
+                    <div class="question-header">
+                        <div>
+                            <div class="question-title">What tools help identify the top-performing pages driving the most traffic?</div>
+                            <div class="tool-name">Google Search Console</div>
+                        </div>
+                        <div class="toggle-icon">▼</div>
+                    </div>
+                    
+                    <div class="details">
+                        <div class="details-row">
+                            <div class="details-col">
+                                <div class="detail-group">
+                                    <div class="detail-label tool-intro-label">Tool Introduction</div>
+                                    <div class="detail-value">Track your site's health and performance in real time.</div>
+                                </div>
+                                
+                                <div class="detail-group">
+                                    <div class="detail-label solution-path-label">Solution Path</div>
+                                    <div class="detail-value">Performance--> Pages</div>
+                                </div>
+                            </div>
+                            
+                            <div class="details-col">
+                                <a href="https://search.google.com/search-console/about" class="visit-button visit-tool-btn" target="_blank">Visit Tool</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="question-item" onclick="toggleDetails(this)">
+                    <div class="question-header">
+                        <div>
+                            <div class="question-title">What tools can I use to monitor user experience metrics like bounce rate and time on page?</div>
+                            <div class="tool-name">Google Analytics</div>
+                        </div>
+                        <div class="toggle-icon">▼</div>
+                    </div>
+                    
+                    <div class="details">
+                        <div class="details-row">
+                            <div class="details-col">
+                                <div class="detail-group">
+                                    <div class="detail-label tool-intro-label">Tool Introduction</div>
+                                    <div class="detail-value">Gain deeper insights into who your customers are and what they care about.</div>
+                                </div>
+                                
+                                <div class="detail-group">
+                                    <div class="detail-label solution-path-label">Solution Path</div>
+                                    <div class="detail-value">Acquisition → Overview</div>
+                                </div>
+                            </div>
+                            
+                            <div class="details-col">
+                                <a href="https://developers.google.com/analytics" class="visit-button visit-tool-btn" target="_blank">Visit Tool</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="question-item" onclick="toggleDetails(this)">
+                    <div class="question-header">
+                        <div>
+                            <div class="question-title">What tools show the breakdown of my website's traffic sources?</div>
+                            <div class="tool-name">Google Analytics</div>
+                        </div>
+                        <div class="toggle-icon">▼</div>
+                    </div>
+                    
+                    <div class="details">
+                        <div class="details-row">
+                            <div class="details-col">
+                                <div class="detail-group">
+                                    <div class="detail-label tool-intro-label">Tool Introduction</div>
+                                    <div class="detail-value">Gain deeper insights into who your customers are and what they care about.</div>
+                                </div>
+                                
+                                <div class="detail-group">
+                                    <div class="detail-label solution-path-label">Solution Path</div>
+                                    <div class="detail-value">Acquisition → Traffic acquisition</div>
+                                </div>
+                            </div>
+                            
+                            <div class="details-col">
+                                <a href="https://developers.google.com/analytics" class="visit-button visit-tool-btn" target="_blank">Visit Tool</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="question-item" onclick="toggleDetails(this)">
+                    <div class="question-header">
+                        <div>
+                            <div class="question-title">What tools show the geographic distribution of my traffic?</div>
+                            <div class="tool-name">Google Analytics</div>
+                        </div>
+                        <div class="toggle-icon">▼</div>
+                    </div>
+                    
+                    <div class="details">
+                        <div class="details-row">
+                            <div class="details-col">
+                                <div class="detail-group">
+                                    <div class="detail-label tool-intro-label">Tool Introduction</div>
+                                    <div class="detail-value">Gain deeper insights into who your customers are and what they care about.</div>
+                                </div>
+                                
+                                <div class="detail-group">
+                                    <div class="detail-label solution-path-label">Solution Path</div>
+                                    <div class="detail-value">User → Demographics → Demographic details</div>
+                                </div>
+                            </div>
+                            
+                            <div class="details-col">
+                                <a href="https://developers.google.com/analytics" class="visit-button visit-tool-btn" target="_blank">Visit Tool</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="question-item" onclick="toggleDetails(this)">
+                    <div class="question-header">
+                        <div>
+                            <div class="question-title">What tools reveal how much traffic comes from different devices?</div>
+                            <div class="tool-name">Google Analytics</div>
+                        </div>
+                        <div class="toggle-icon">▼</div>
+                    </div>
+                    
+                    <div class="details">
+                        <div class="details-row">
+                            <div class="details-col">
+                                <div class="detail-group">
+                                    <div class="detail-label tool-intro-label">Tool Introduction</div>
+                                    <div class="detail-value">Gain deeper insights into who your customers are and what they care about.</div>
+                                </div>
+                                
+                                <div class="detail-group">
+                                    <div class="detail-label solution-path-label">Solution Path</div>
+                                    <div class="detail-value">User → Tech → Tech overview</div>
+                                </div>
+                            </div>
+                            
+                            <div class="details-col">
+                                <a href="https://developers.google.com/analytics" class="visit-button visit-tool-btn" target="_blank">Visit Tool</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="question-item" onclick="toggleDetails(this)">
+                    <div class="question-header">
+                        <div>
+                            <div class="question-title">What tools can measure my website's actual load speed?</div>
+                            <div class="tool-name">Google Analytics</div>
+                        </div>
+                        <div class="toggle-icon">▼</div>
+                    </div>
+                    
+                    <div class="details">
+                        <div class="details-row">
+                            <div class="details-col">
+                                <div class="detail-group">
+                                    <div class="detail-label tool-intro-label">Tool Introduction</div>
+                                    <div class="detail-value">Gain deeper insights into who your customers are and what they care about.</div>
+                                </div>
+                                
+                                <div class="detail-group">
+                                    <div class="detail-label solution-path-label">Solution Path</div>
+                                    <div class="detail-value">Behavior → Site Speed → Overview</div>
+                                </div>
+                            </div>
+                            
+                            <div class="details-col">
+                                <a href="https://developers.google.com/analytics" class="visit-button visit-tool-btn" target="_blank">Visit Tool</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="question-item" onclick="toggleDetails(this)">
+                    <div class="question-header">
+                        <div>
+                            <div class="question-title">What tools let me see which browser versions and screen resolutions my users are on?</div>
+                            <div class="tool-name">Google Analytics</div>
+                        </div>
+                        <div class="toggle-icon">▼</div>
+                    </div>
+                    
+                    <div class="details">
+                        <div class="details-row">
+                            <div class="details-col">
+                                <div class="detail-group">
+                                    <div class="detail-label tool-intro-label">Tool Introduction</div>
+                                    <div class="detail-value">Gain deeper insights into who your customers are and what they care about.</div>
+                                </div>
+                                
+                                <div class="detail-group">
+                                    <div class="detail-label solution-path-label">Solution Path</div>
+                                    <div class="detail-value">User → Tech → Tech details</div>
+                                </div>
+                            </div>
+                            
+                            <div class="details-col">
+                                <a href="https://developers.google.com/analytics" class="visit-button visit-tool-btn" target="_blank">Visit Tool</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="question-item" onclick="toggleDetails(this)">
+                    <div class="question-header">
+                        <div>
+                            <div class="question-title">What tools give insights into the demographic characteristics of my audience?</div>
+                            <div class="tool-name">Google Analytics</div>
+                        </div>
+                        <div class="toggle-icon">▼</div>
+                    </div>
+                    
+                    <div class="details">
+                        <div class="details-row">
+                            <div class="details-col">
+                                <div class="detail-group">
+                                    <div class="detail-label tool-intro-label">Tool Introduction</div>
+                                    <div class="detail-value">Gain deeper insights into who your customers are and what they care about.</div>
+                                </div>
+                                
+                                <div class="detail-group">
+                                    <div class="detail-label solution-path-label">Solution Path</div>
+                                    <div class="detail-value">User → Demographics → Demographic details</div>
+                                </div>
+                            </div>
+                            
+                            <div class="details-col">
+                                <a href="https://developers.google.com/analytics" class="visit-button visit-tool-btn" target="_blank">Visit Tool</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-info">
+                    <h3 id="footer-title">Website Developer Navigation Tool</h3>
+                    <p id="footer-subtitle">A one-stop navigation service for independent website developers</p>
+                </div>
+                
+                <div class="footer-info">
+                    <p id="copyright">© 2025 Website Developer Navigation</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+    
+    <script>
+        // Language text data
+        const translations = {
+            en: {
+                mainTitle: "Website Developer Navigation Tool",
+                mainSubtitle: "A navigation tool for independent website developers",
+                sectionTitle: "Actual data from our own website",
+                sectionSubtitle: "Website data analysis tools navigation",
+                toolIntro: "Tool Introduction",
+                solutionPath: "Solution Path",
+                visitTool: "Visit Tool",
+                footerTitle: "Website Developer Navigation Tool",
+                footerSubtitle: "A one-stop navigation service for independent website developers",
+                copyright: "© 2025 Website Developer Navigation"
+            },
+            zh: {
+                mainTitle: "独立站开发者导航工具",
+                mainSubtitle: "专为独立站开发者提供的工具导航",
+                sectionTitle: "Actual data from our own website",
+                sectionSubtitle: "网站数据分析工具导航",
+                toolIntro: "工具简介",
+                solutionPath: "解决路径",
+                visitTool: "访问工具",
+                footerTitle: "独立站开发者导航工具",
+                footerSubtitle: "为独立站开发者提供的一站式导航服务",
+                copyright: "© 2025 独立站开发者导航"
+            }
+        };
+        
+        // Toggle details function
+        function toggleDetails(element) {
+            const details = element.querySelector('.details');
+            const icon = element.querySelector('.toggle-icon');
+            
+            if (details.classList.contains('details-visible')) {
+                details.classList.remove('details-visible');
+                icon.textContent = '▼';
+            } else {
+                details.classList.add('details-visible');
+                icon.textContent = '▲';
+            }
+        }
+        
+        // Change language function
+        function changeLanguage(lang) {
+            // Get translation data
+            const t = translations[lang];
+            
+            // Update all text elements
+            document.getElementById('main-title').textContent = t.mainTitle;
+            document.getElementById('main-subtitle').textContent = t.mainSubtitle;
+            document.getElementById('section-title').textContent = t.sectionTitle;
+            document.getElementById('section-subtitle').textContent = t.sectionSubtitle;
+            document.getElementById('footer-title').textContent = t.footerTitle;
+            document.getElementById('footer-subtitle').textContent = t.footerSubtitle;
+            document.getElementById('copyright').textContent = t.copyright;
+            
+            // Update tool labels
+            const toolIntroLabels = document.querySelectorAll('.tool-intro-label');
+            const solutionPathLabels = document.querySelectorAll('.solution-path-label');
+            const visitToolBtns = document.querySelectorAll('.visit-tool-btn');
+            
+            toolIntroLabels.forEach(label => {
+                label.textContent = t.toolIntro;
+            });
+            
+            solutionPathLabels.forEach(label => {
+                label.textContent = t.solutionPath;
+            });
+            
+            visitToolBtns.forEach(btn => {
+                btn.textContent = t.visitTool;
+            });
+            
+            // Update active button styling
+            const langButtons = document.querySelectorAll('.language-btn');
+            langButtons.forEach(btn => {
+                btn.classList.remove('active');
+                if ((btn.textContent === 'EN' && lang === 'en') || 
+                    (btn.textContent === '中文' && lang === 'zh')) {
+                    btn.classList.add('active');
+                }
+            });
+            
+            // Update HTML lang attribute
+            document.documentElement.lang = lang;
+        }
+    </script>
+</body>
+</html>
